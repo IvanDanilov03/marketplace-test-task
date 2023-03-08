@@ -4,10 +4,11 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "./theme";
 import ElectronicsPage from "./pages/ElectronicsPage/ElectronicsPage";
 import DetailsPage from "./pages/DetailsPage/DetailsPage";
+import { Box } from "./components/ui/Box";
 
 const App: FC = () => {
   return (
-    <div>
+    <Box>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Routes>
@@ -19,7 +20,7 @@ const App: FC = () => {
           />
         </Routes>
       </ThemeProvider>
-    </div>
+    </Box>
   );
 };
 
