@@ -11,16 +11,18 @@ export const styles: SxStyles = {
   },
   container: {
     display: "flex",
+    px: 4,
+    [basicTheme.breakpoints.up("tablet")]: {
+      px: 10,
+    },
   },
   backButton: {
-    ml: 4,
     mr: 4,
   },
   iconBox: {
     position: "relative",
   },
   iconWrapper: {
-    ml: 10,
     bgcolor: "custom.primary",
     width: 40,
     height: 40,
@@ -38,7 +40,7 @@ export const styles: SxStyles = {
     borderRadius: "20%",
     opacity: "20%",
     top: 0,
-    left: 44,
+    left: 4,
   },
   titleBox: {
     ml: 5,
