@@ -1,12 +1,20 @@
 import { SxStyles } from "../../../types/styles";
+import { basicTheme } from "../../../theme";
 
 export const styles: SxStyles = {
   root: {
-    py: 5,
+    py: 4,
     bgcolor: "custom.white",
+    [basicTheme.breakpoints.up("tablet")]: {
+      py: 5,
+    },
   },
   container: {
     display: "flex",
+  },
+  backButton: {
+    ml: 4,
+    mr: 4,
   },
   iconBox: {
     position: "relative",
