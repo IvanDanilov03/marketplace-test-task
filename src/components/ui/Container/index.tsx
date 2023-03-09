@@ -1,6 +1,2 @@
-import { FC } from 'react';
-import { Container as MuiContainer, ContainerProps } from '@mui/material';
-
-export const Container: FC<ContainerProps> = (props) => (
-  <MuiContainer {...props} />
-);
+export type { ContainerProps } from '@mui/material/Container';
+export { default as Container } from '@mui/material/Container';
