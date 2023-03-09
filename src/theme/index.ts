@@ -2,10 +2,14 @@ import { createTheme } from "@mui/material";
 
 export const basicTheme = createTheme({
   palette: {
+    background: {
+      default: "#F7FAFC",
+    },
     custom: {
       white: "#FFFFFF",
       dark: "#1C1C1C",
-      primary: "0D6EFD",
+      primary: "#0D6EFD",
+      blue: "#8CB7F5",
       green: "#00B517",
       orange: "#FF9017",
       red: "#FA3434",
