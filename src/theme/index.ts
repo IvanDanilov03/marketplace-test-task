@@ -139,6 +139,13 @@ export const theme = createTheme(
           },
         },
       },
+      MuiIconButton: {
+        styleOverrides: {
+          root: {
+            padding: 0,
+          },
+        },
+      },
     },
   },
   basicTheme
