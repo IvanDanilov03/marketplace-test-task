@@ -93,6 +93,24 @@ export const basicTheme = createTheme({
       letterSpacing: 0,
       lineHeight: "19px",
     },
+    textBtnNormal: {
+      fontWeight: 500,
+      fontSize: "16px",
+      letterSpacing: 0,
+      lineHeight: "19px",
+    },
+    textBtnLarge: {
+      fontWeight: 500,
+      fontSize: "18px",
+      letterSpacing: 0,
+      lineHeight: "12px",
+    },
+    textBtnSmall: {
+      fontWeight: 500,
+      fontSize: "13px",
+      letterSpacing: 0,
+      lineHeight: "16px",
+    },
   },
   spacing: 4,
 });
@@ -117,6 +135,9 @@ export const theme = createTheme(
             textSmall: "p",
             textTitle: "p",
             textBase: "p",
+            textBtnNormal: "p",
+            textBtnLarge: "p",
+            textBtnSmall: "p",
           },
         },
       },
@@ -134,6 +155,7 @@ export const theme = createTheme(
       MuiButton: {
         styleOverrides: {
           root: {
+            padding: 0,
             textTransform: "none",
             color: "inherit",
           },
@@ -143,6 +165,22 @@ export const theme = createTheme(
         styleOverrides: {
           root: {
             padding: 0,
+          },
+        },
+      },
+      MuiLink: {
+        styleOverrides: {
+          root: {
+            textDecoration: "none",
+            color: "inherit",
+            "&:hover": {
+              textDecoration: "underline",
+              textUnderlinePosition: "under",
+              color: "inherit",
+            },
+            "&:disabled": {
+              color: "greyPalette.600",
+            },
           },
         },
       },

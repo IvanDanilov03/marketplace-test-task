@@ -63,12 +63,18 @@ declare module "@mui/material/styles" {
     textSmall: React.CSSProperties;
     textTitle: React.CSSProperties;
     textBase: React.CSSProperties;
+    textBtnNormal: React.CSSProperties;
+    textBtnLarge: React.CSSProperties;
+    textBtnSmall: React.CSSProperties;
   }
   interface TypographyVariantsOptions {
     textInfo?: React.CSSProperties;
     textSmall?: React.CSSProperties;
     textTitle?: React.CSSProperties;
     textBase?: React.CSSProperties;
+    textBtnNormal?: React.CSSProperties;
+    textBtnLarge?: React.CSSProperties;
+    textBtnSmall?: React.CSSProperties;
   }
 }
 
@@ -79,5 +85,8 @@ declare module "@mui/material/Typography" {
     textSmall: true;
     textTitle: true;
     textBase: true;
+    textBtnNormal: true;
+    textBtnLarge: true;
+    textBtnSmall: true;
   }
 }
