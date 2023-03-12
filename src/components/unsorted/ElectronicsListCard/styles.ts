@@ -21,7 +21,6 @@ export const styles: SxStyles = {
     },
   },
   imageWrapper: {
-    border: "1px solid red",
     p: 2,
     minWidth: 98,
     maxWidth: 98,
