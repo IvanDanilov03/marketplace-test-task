@@ -1,15 +1,23 @@
 import { FC } from "react";
-import { BreadcrumbsSection } from "../../components/sections/BreadcrumbsSection";
-import { SortingSection } from "../../components/sections/SortingSection";
+import { useBreakpoints } from "../../hooks/useBreakpoints";
+
 import { Box } from "../../components/ui/Box";
 import { Header } from "../../components/unsorted/Header";
-import { useBreakpoints } from "../../hooks/useBreakpoints";
+import { BreadcrumbsSection } from "../../components/sections/BreadcrumbsSection";
+import { SortingSection } from "../../components/sections/SortingSection";
+import { FilterElectronicsListSection } from "../../components/sections/FilterElectronicsListSection";
+
+import { Electronics } from "../../types/api";
 
 import { styles } from "./styles";
 
-interface ElectronicsPageViewProps {}
+interface ElectronicsPageViewProps {
+  content: Electronics[];
+}
 
-export const ElectronicsPageView: FC<ElectronicsPageViewProps> = () => {
+export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
+  content,
+}) => {
   const { isUpTablet } = useBreakpoints();
   return (
     <Box sx={styles.root}>
@@ -23,6 +31,7 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = () => {
         />
       )}
       <SortingSection />
+      <FilterElectronicsListSection content={content} />
     </Box>
   );
 };
