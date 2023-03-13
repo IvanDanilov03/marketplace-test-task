@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { Box } from "../../ui/Box";
 import { Button } from "../../ui/Button";
@@ -85,7 +86,13 @@ export const RangeFilter: FC<RangeFilterProps> = ({
     setSelectedRange(value);
   };
 
-  const sliderValue = resetFilter ? [0, maxValueForRange] : value;
+  const [searchParams] = useSearchParams();
+
+  const queryMaxValue = Object.is(searchParams.get("range"), null)
+    ? [0, maxValueForRange]
+    : searchParams.get("range")!.split(",").map(Number);
+
+  const sliderValue = resetFilter ? queryMaxValue : value;
 
   return (
     <Box sx={styles.root}>

@@ -38,11 +38,12 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
   const [selectedBrand, setSelectedBrand] =
     useState<string[]>(querySelectBrands);
 
-  const queryRange = Object.is(searchParams.get("range"), null)
-    ? []
-    : searchParams.get("range")!.split(",").map(Number);
+  const queryRange =
+    searchParams.get("range") === "0" || Object.is(searchParams.get("range"), null)
+      ? [0, maxValueForRange]
+      : searchParams.get("range")!.split(",").map(Number);
 
-  const [selectedRange, setSelectedRange] = useState([0, maxValueForRange]);
+  const [selectedRange, setSelectedRange] = useState(queryRange);
   const [resetFilter, setResetFilter] = useState(true);
 
   const filterData = useCallback(() => {
