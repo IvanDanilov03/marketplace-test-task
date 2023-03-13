@@ -1,13 +1,14 @@
 import { FC } from "react";
 import { Image } from "mui-image";
 import { useNavigate } from "react-router-dom";
-
-import { styles } from "./styles";
+import { useBreakpoints } from "../../../hooks/useBreakpoints";
 
 import { Box } from "../../ui/Box";
 import { Typography } from "../../ui/Typography";
 import { Link } from "../../ui/Link";
-import { useBreakpoints } from "../../../hooks/useBreakpoints";
+
+import { styles } from "./styles";
+
 
 export interface ElectronicsListCardProps {
   id: number;
