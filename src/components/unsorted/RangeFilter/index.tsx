@@ -84,6 +84,8 @@ export const RangeFilter: FC<RangeFilterProps> = ({
   const applyRangeHandler = () => {
     setResetFilter(false);
     setSelectedRange(value);
+    value.splice(0, 1, firstInput);
+    value.splice(1, 1, secondInput);
   };
 
   const [searchParams] = useSearchParams();
@@ -115,6 +117,7 @@ export const RangeFilter: FC<RangeFilterProps> = ({
             inputProps={{
               min: 0,
               max: { maxValueForRange },
+              step: 1,
               type: "number",
               "aria-labelledby": "input-slider",
             }}
