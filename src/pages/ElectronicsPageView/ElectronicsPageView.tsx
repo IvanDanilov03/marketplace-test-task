@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useCallback, useMemo } from "react";
+import { FC, useState, useEffect, useCallback } from "react";
 import { useBreakpoints } from "../../hooks/useBreakpoints";
 import { useSearchParams } from "react-router-dom";
 
@@ -25,12 +25,25 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
 
   const maxValueForRange = Math.max(...content.map((item) => item.price));
 
-  // const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [filteredContent, setFilteredContent] = useState(content);
-  const [sortFromLowToHigh, setSortFromLowToHigh] = useState(true);
-  const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
+  const [sortFromLowToHigh, setSortFromLowToHigh] = useState(
+    searchParams.get("lowToHigh") === "true"
+  );
+  const querySelectBrands = Object.is(searchParams.get("brands"), null)
+    ? []
+    : searchParams.get("brands")!.split(",");
+
+  const [selectedBrand, setSelectedBrand] =
+    useState<string[]>(querySelectBrands);
+
+  const queryRange = Object.is(searchParams.get("range"), null)
+    ? []
+    : searchParams.get("range")!.split(",").map(Number);
+
   const [selectedRange, setSelectedRange] = useState([0, maxValueForRange]);
+  const [resetFilter, setResetFilter] = useState(true);
 
   const filterData = useCallback(() => {
     const findFilteredData = (
@@ -39,7 +52,7 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
       lowToHigh: boolean
     ) => {
       if (filters.length === 0 && lowToHigh) {
-        console.log(lowToHigh, "1");
+        setSearchParams({ lowToHigh: "true", range: `${selectedRange}` });
         const sortedRangeArray = array.filter((item) => {
           return (
             item.price <= selectedRange[1] && item.price >= selectedRange[0]
@@ -48,12 +61,21 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
         return sortedRangeArray.sort((a, b) => a.price - b.price);
       }
       if (filters.length === 0 && !lowToHigh) {
+        setSearchParams({ lowToHigh: "false", range: `${selectedRange}` });
         const sortedRangeArray = array.filter((item) => {
-          return item.price <= selectedRange[1] && item.price >= selectedRange[0];
+          return (
+            item.price <= selectedRange[1] && item.price >= selectedRange[0]
+          );
         });
         return sortedRangeArray.sort((a, b) => b.price - a.price);
       }
       if (filters.length !== 0 && lowToHigh) {
+        setResetFilter(false);
+        setSearchParams({
+          brands: `${filters}`,
+          lowToHigh: "true",
+          range: `${selectedRange}`,
+        });
         const filteredByBrandData = filters
           .map((item) =>
             array.filter((electronic) => {
@@ -61,13 +83,19 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
             })
           )
           .flat();
-        console.log(lowToHigh, "3");
         const sortedRangeArray = filteredByBrandData.filter((item) => {
-          return item.price <= selectedRange[1] && item.price >= selectedRange[0];
+          return (
+            item.price <= selectedRange[1] && item.price >= selectedRange[0]
+          );
         });
         return sortedRangeArray.sort((a, b) => a.price - b.price);
       }
       if (filters.length !== 0 && !lowToHigh) {
+        setSearchParams({
+          brands: `${filters}`,
+          lowToHigh: "false",
+          range: `${selectedRange}`,
+        });
         const filteredByBrandData = filters
           .map((item) =>
             array.filter((electronic) => {
@@ -75,9 +103,10 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
             })
           )
           .flat();
-        console.log(lowToHigh, "4");
         const sortedRangeArray = filteredByBrandData.filter((item) => {
-          return item.price <= selectedRange[1] && item.price >= selectedRange[0];
+          return (
+            item.price <= selectedRange[1] && item.price >= selectedRange[0]
+          );
         });
         return sortedRangeArray.sort((a, b) => b.price - a.price);
       }
@@ -87,13 +116,17 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
     setFilteredContent(
       findFilteredData(content, selectedBrand, sortFromLowToHigh)
     );
-  }, [content, sortFromLowToHigh, selectedBrand, selectedRange]);
+  }, [
+    content,
+    sortFromLowToHigh,
+    selectedBrand,
+    selectedRange,
+    setSearchParams,
+  ]);
 
   useEffect(() => {
     filterData();
   }, [filterData]);
-
-  console.log(filteredContent);
 
   return (
     <Box sx={styles.root}>
@@ -116,6 +149,8 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
         selectedRange={selectedRange}
         setSelectedRange={setSelectedRange}
         maxValueForRange={maxValueForRange}
+        resetFilter={resetFilter}
+        setResetFilter={setResetFilter}
       />
       <FilterElectronicsListSection
         content={filteredContent}
@@ -126,6 +161,8 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
         selectedRange={selectedRange}
         setSelectedRange={setSelectedRange}
         maxValueForRange={maxValueForRange}
+        resetFilter={resetFilter}
+        setResetFilter={setResetFilter}
       />
     </Box>
   );
