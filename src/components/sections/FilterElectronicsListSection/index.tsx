@@ -20,6 +20,9 @@ interface FilterElectronicsListSectionProps {
   selectedRange: number[];
   setSelectedRange: (value: React.SetStateAction<number[]>) => void;
   maxValueForRange: number;
+  resetFilter: boolean;
+  setResetFilter: (value: React.SetStateAction<boolean>) => void;
+
 }
 
 export const FilterElectronicsListSection: FC<
@@ -33,12 +36,15 @@ export const FilterElectronicsListSection: FC<
   selectedRange,
   setSelectedRange,
   maxValueForRange,
+  resetFilter,
+  setResetFilter
 }) => {
   const { isUpTablet } = useBreakpoints();
 
   const resetHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedFilter([]);
-    setSelectedRange([0, 10000]);
+    setSelectedRange([0, maxValueForRange]);
+    setResetFilter(true)
   };
 
   return (
@@ -53,6 +59,8 @@ export const FilterElectronicsListSection: FC<
             selectedRange={selectedRange}
             setSelectedRange={setSelectedRange}
             maxValueForRange={maxValueForRange}
+            resetFilter={resetFilter}
+            setResetFilter={setResetFilter}
           />
           <Button sx={styles.resetFilter} onClick={resetHandler}>
             <Typography color="custom.primary">Reset filter</Typography>
