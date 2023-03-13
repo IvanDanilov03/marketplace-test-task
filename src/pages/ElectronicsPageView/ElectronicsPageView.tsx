@@ -26,10 +26,13 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
   const maxValueForRange = Math.max(...content.map((item) => item.price));
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const querySortFromLowToHigh = Object.is(searchParams.get("lowToHigh"), null)
+    ? searchParams.get("lowToHigh") === "false"
+    : searchParams.get("lowToHigh") === "true";
 
   const [filteredContent, setFilteredContent] = useState(content);
   const [sortFromLowToHigh, setSortFromLowToHigh] = useState(
-    searchParams.get("lowToHigh") === "true"
+    querySortFromLowToHigh
   );
   const querySelectBrands = Object.is(searchParams.get("brands"), null)
     ? []
@@ -39,7 +42,8 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
     useState<string[]>(querySelectBrands);
 
   const queryRange =
-    searchParams.get("range") === "0" || Object.is(searchParams.get("range"), null)
+    searchParams.get("range") === "0" ||
+    Object.is(searchParams.get("range"), null)
       ? [0, maxValueForRange]
       : searchParams.get("range")!.split(",").map(Number);
 
