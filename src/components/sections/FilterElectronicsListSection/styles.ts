@@ -6,11 +6,11 @@ export const styles: SxStyles = {
     px: 4,
     mt: 4,
     mb: 10,
-    display: 'flex',
+    display: "flex",
     [basicTheme.breakpoints.up("tablet")]: {
       px: 10,
       mt: 3,
-      display: 'flex',
+      display: "flex",
       columnGap: 6,
     },
     [basicTheme.breakpoints.up("laptop")]: {
@@ -20,11 +20,21 @@ export const styles: SxStyles = {
   },
   filtersPanelWrapper: {
     width: "30%",
+    display: "flex",
+    flexDirection: "column",
+    [basicTheme.breakpoints.up("laptop")]: {
+      width: "20%",
+    },
   },
   electronicsListWrapper: {
     width: "100%",
     [basicTheme.breakpoints.up("tablet")]: {
-      width: "70%",
+      width: "80%",
     },
+  },
+  resetFilter: {
+    minWidth: "auto",
+    mr: "auto",
+    mt: 5,
   },
 };
