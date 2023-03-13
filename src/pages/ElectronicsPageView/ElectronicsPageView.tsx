@@ -23,12 +23,14 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
 }) => {
   const { isUpTablet } = useBreakpoints();
 
+  const maxValueForRange = Math.max(...content.map((item) => item.price));
+
   // const [searchParams, setSearchParams] = useSearchParams();
 
   const [filteredContent, setFilteredContent] = useState(content);
   const [sortFromLowToHigh, setSortFromLowToHigh] = useState(true);
   const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
-  const [selectedRange, setSelectedRange] = useState([100, 7000]);
+  const [selectedRange, setSelectedRange] = useState([0, maxValueForRange]);
 
   const filterData = useCallback(() => {
     const findFilteredData = (
@@ -39,13 +41,15 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
       if (filters.length === 0 && lowToHigh) {
         console.log(lowToHigh, "1");
         const sortedRangeArray = array.filter((item) => {
-          return item.price < selectedRange[1] && item.price > selectedRange[0];
+          return (
+            item.price <= selectedRange[1] && item.price >= selectedRange[0]
+          );
         });
         return sortedRangeArray.sort((a, b) => a.price - b.price);
       }
       if (filters.length === 0 && !lowToHigh) {
         const sortedRangeArray = array.filter((item) => {
-          return item.price < selectedRange[1] && item.price > selectedRange[0];
+          return item.price <= selectedRange[1] && item.price >= selectedRange[0];
         });
         return sortedRangeArray.sort((a, b) => b.price - a.price);
       }
@@ -59,7 +63,7 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
           .flat();
         console.log(lowToHigh, "3");
         const sortedRangeArray = filteredByBrandData.filter((item) => {
-          return item.price < selectedRange[1] && item.price > selectedRange[0];
+          return item.price <= selectedRange[1] && item.price >= selectedRange[0];
         });
         return sortedRangeArray.sort((a, b) => a.price - b.price);
       }
@@ -73,7 +77,7 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
           .flat();
         console.log(lowToHigh, "4");
         const sortedRangeArray = filteredByBrandData.filter((item) => {
-          return item.price < selectedRange[1] && item.price > selectedRange[0];
+          return item.price <= selectedRange[1] && item.price >= selectedRange[0];
         });
         return sortedRangeArray.sort((a, b) => b.price - a.price);
       }
@@ -111,6 +115,7 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
         setSelectedFilter={setSelectedBrand}
         selectedRange={selectedRange}
         setSelectedRange={setSelectedRange}
+        maxValueForRange={maxValueForRange}
       />
       <FilterElectronicsListSection
         content={filteredContent}
@@ -120,6 +125,7 @@ export const ElectronicsPageView: FC<ElectronicsPageViewProps> = ({
         setSelectedFilter={setSelectedBrand}
         selectedRange={selectedRange}
         setSelectedRange={setSelectedRange}
+        maxValueForRange={maxValueForRange}
       />
     </Box>
   );

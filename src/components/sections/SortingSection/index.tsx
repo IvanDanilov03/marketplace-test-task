@@ -24,6 +24,7 @@ interface SortingSectionProps {
   setSelectedFilter: (value: React.SetStateAction<string[]>) => void;
   selectedRange: number[];
   setSelectedRange: (value: React.SetStateAction<number[]>) => void;
+  maxValueForRange: number;
 }
 
 export const SortingSection: FC<SortingSectionProps> = ({
@@ -35,6 +36,7 @@ export const SortingSection: FC<SortingSectionProps> = ({
   setSelectedFilter,
   selectedRange,
   setSelectedRange,
+  maxValueForRange,
 }) => {
   const { isUpMobile, isUpTablet } = useBreakpoints();
   const [openFilterPanel, setOpenFilterPAnel] = useState(false);
@@ -96,6 +98,7 @@ export const SortingSection: FC<SortingSectionProps> = ({
             setSelectedFilter={setSelectedFilter}
             selectedRange={selectedRange}
             setSelectedRange={setSelectedRange}
+            maxValueForRange={maxValueForRange}
           />
         </Box>
       )}

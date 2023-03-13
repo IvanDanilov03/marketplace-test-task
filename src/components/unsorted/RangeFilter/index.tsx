@@ -11,11 +11,13 @@ import { styles } from "./styles";
 export interface RangeFilterProps {
   selectedRange: number[];
   setSelectedRange: (value: React.SetStateAction<number[]>) => void;
+  maxValueForRange: number;
 }
 
 export const RangeFilter: FC<RangeFilterProps> = ({
   selectedRange,
   setSelectedRange,
+  maxValueForRange,
 }) => {
   const [value, setValue] = useState(selectedRange);
 
@@ -34,8 +36,8 @@ export const RangeFilter: FC<RangeFilterProps> = ({
   ) => {
     if (firstInput < 0) {
       setFirstInput(0);
-    } else if (firstInput > 10000) {
-      setFirstInput(10000);
+    } else if (firstInput > maxValueForRange) {
+      setFirstInput(maxValueForRange);
     }
     setFirstInput(event.target.value === "" ? 0 : Number(event.target.value));
     value.splice(0, 1, firstInput);
@@ -45,8 +47,8 @@ export const RangeFilter: FC<RangeFilterProps> = ({
     if (firstInput < 0) {
       setFirstInput(0);
       value.splice(0, 1, firstInput);
-    } else if (firstInput > 10000) {
-      setFirstInput(10000);
+    } else if (firstInput > maxValueForRange) {
+      setFirstInput(maxValueForRange);
       value.splice(0, 1, firstInput);
     }
   };
@@ -54,8 +56,8 @@ export const RangeFilter: FC<RangeFilterProps> = ({
   const handleSecondInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    if (Number(event.target.value) > 10000) {
-      setSecondInput(10000);
+    if (Number(event.target.value) > maxValueForRange) {
+      setSecondInput(maxValueForRange);
       value[1] = secondInput;
     } else {
       setSecondInput(Number(event.target.value));
@@ -67,8 +69,8 @@ export const RangeFilter: FC<RangeFilterProps> = ({
     if (secondInput < 0) {
       setSecondInput(0);
       value.splice(1, 1, secondInput);
-    } else if (secondInput > 10000) {
-      setSecondInput(10000);
+    } else if (secondInput > maxValueForRange) {
+      setSecondInput(maxValueForRange);
       value.splice(1, 1, secondInput);
     }
   };
@@ -79,7 +81,7 @@ export const RangeFilter: FC<RangeFilterProps> = ({
       <Slider
         value={value}
         onChange={handleChange}
-        max={10000}
+        max={maxValueForRange}
         sx={styles.slider}
       />
       <Box sx={styles.inputsBox}>
@@ -92,8 +94,8 @@ export const RangeFilter: FC<RangeFilterProps> = ({
             onChange={handleFirstInputChange}
             onBlur={handleFirstBlur}
             inputProps={{
-              min: -1,
-              max: 10000,
+              min: 0,
+              max: {maxValueForRange},
               type: "number",
               "aria-labelledby": "input-slider",
             }}
@@ -109,7 +111,7 @@ export const RangeFilter: FC<RangeFilterProps> = ({
             onBlur={handleSecondBlur}
             inputProps={{
               min: 0,
-              max: 10000,
+              max: {maxValueForRange},
               step: 1,
               type: "number",
               "aria-labelledby": "input-slider",

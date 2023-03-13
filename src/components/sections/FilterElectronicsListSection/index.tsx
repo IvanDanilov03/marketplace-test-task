@@ -19,6 +19,7 @@ interface FilterElectronicsListSectionProps {
   setSelectedFilter: (value: React.SetStateAction<string[]>) => void;
   selectedRange: number[];
   setSelectedRange: (value: React.SetStateAction<number[]>) => void;
+  maxValueForRange: number;
 }
 
 export const FilterElectronicsListSection: FC<
@@ -31,6 +32,7 @@ export const FilterElectronicsListSection: FC<
   setSelectedFilter,
   selectedRange,
   setSelectedRange,
+  maxValueForRange,
 }) => {
   const { isUpTablet } = useBreakpoints();
 
@@ -50,6 +52,7 @@ export const FilterElectronicsListSection: FC<
             setSelectedFilter={setSelectedFilter}
             selectedRange={selectedRange}
             setSelectedRange={setSelectedRange}
+            maxValueForRange={maxValueForRange}
           />
           <Button sx={styles.resetFilter} onClick={resetHandler}>
             <Typography color="custom.primary">Reset filter</Typography>
