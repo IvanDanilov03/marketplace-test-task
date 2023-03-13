@@ -16,6 +16,8 @@ export interface FiltersPanelProps {
   selectedRange: number[];
   setSelectedRange: (value: React.SetStateAction<number[]>) => void;
   maxValueForRange: number;
+  resetFilter: boolean;
+  setResetFilter: (value: React.SetStateAction<boolean>) => void;
 }
 
 export const FiltersPanel: FC<FiltersPanelProps> = ({
@@ -26,6 +28,8 @@ export const FiltersPanel: FC<FiltersPanelProps> = ({
   selectedRange,
   setSelectedRange,
   maxValueForRange,
+  resetFilter,
+  setResetFilter
 }) => {
   const { isUpTablet } = useBreakpoints();
   return (
@@ -46,6 +50,8 @@ export const FiltersPanel: FC<FiltersPanelProps> = ({
           selectedRange={selectedRange}
           setSelectedRange={setSelectedRange}
           maxValueForRange={maxValueForRange}
+          resetFilter={resetFilter}
+          setResetFilter={setResetFilter}
         />
       </Box>
     </Box>
