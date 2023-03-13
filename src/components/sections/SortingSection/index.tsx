@@ -25,6 +25,8 @@ interface SortingSectionProps {
   selectedRange: number[];
   setSelectedRange: (value: React.SetStateAction<number[]>) => void;
   maxValueForRange: number;
+  resetFilter: boolean;
+  setResetFilter: (value: React.SetStateAction<boolean>) => void;
 }
 
 export const SortingSection: FC<SortingSectionProps> = ({
@@ -37,6 +39,8 @@ export const SortingSection: FC<SortingSectionProps> = ({
   selectedRange,
   setSelectedRange,
   maxValueForRange,
+  resetFilter,
+  setResetFilter
 }) => {
   const { isUpMobile, isUpTablet } = useBreakpoints();
   const [openFilterPanel, setOpenFilterPAnel] = useState(false);
@@ -48,7 +52,8 @@ export const SortingSection: FC<SortingSectionProps> = ({
 
   const resetHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedFilter([]);
-    setSelectedRange([0, 10000]);
+    setSelectedRange([0, maxValueForRange]);
+    setResetFilter(true)
   };
 
   return (
@@ -99,6 +104,8 @@ export const SortingSection: FC<SortingSectionProps> = ({
             selectedRange={selectedRange}
             setSelectedRange={setSelectedRange}
             maxValueForRange={maxValueForRange}
+            resetFilter={resetFilter}
+            setResetFilter={setResetFilter}
           />
         </Box>
       )}
