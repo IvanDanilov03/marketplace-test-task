@@ -12,16 +12,21 @@ export interface RangeFilterProps {
   selectedRange: number[];
   setSelectedRange: (value: React.SetStateAction<number[]>) => void;
   maxValueForRange: number;
+  resetFilter: boolean;
+  setResetFilter: (value: React.SetStateAction<boolean>) => void;
 }
 
 export const RangeFilter: FC<RangeFilterProps> = ({
   selectedRange,
   setSelectedRange,
   maxValueForRange,
+  resetFilter,
+  setResetFilter,
 }) => {
   const [value, setValue] = useState(selectedRange);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
+    setResetFilter(false);
     setValue(newValue as number[]);
     setFirstInput(value[0]);
     setSecondInput(value[1]);
@@ -75,11 +80,18 @@ export const RangeFilter: FC<RangeFilterProps> = ({
     }
   };
 
+  const applyRangeHandler = () => {
+    setResetFilter(false);
+    setSelectedRange(value);
+  };
+
+  const sliderValue = resetFilter ? [0, maxValueForRange] : value;
+
   return (
     <Box sx={styles.root}>
       <Typography variant="h6">Price range</Typography>
       <Slider
-        value={value}
+        value={sliderValue}
         onChange={handleChange}
         max={maxValueForRange}
         sx={styles.slider}
@@ -89,13 +101,13 @@ export const RangeFilter: FC<RangeFilterProps> = ({
           <Typography>Min</Typography>
           <Input
             sx={styles.input}
-            value={firstInput}
+            value={resetFilter ? selectedRange[0] : firstInput}
             size="small"
             onChange={handleFirstInputChange}
             onBlur={handleFirstBlur}
             inputProps={{
               min: 0,
-              max: {maxValueForRange},
+              max: { maxValueForRange },
               type: "number",
               "aria-labelledby": "input-slider",
             }}
@@ -105,13 +117,13 @@ export const RangeFilter: FC<RangeFilterProps> = ({
           <Typography>Max</Typography>
           <Input
             sx={styles.input}
-            value={secondInput}
+            value={resetFilter ? selectedRange[1] : secondInput}
             size="small"
             onChange={handleSecondInputChange}
             onBlur={handleSecondBlur}
             inputProps={{
               min: 0,
-              max: {maxValueForRange},
+              max: { maxValueForRange },
               step: 1,
               type: "number",
               "aria-labelledby": "input-slider",
@@ -120,7 +132,7 @@ export const RangeFilter: FC<RangeFilterProps> = ({
         </Box>
       </Box>
 
-      <Button onClick={() => setSelectedRange(value)} sx={styles.button}>
+      <Button onClick={applyRangeHandler} sx={styles.button}>
         <Typography color="custom.primary">Apply</Typography>
       </Button>
     </Box>
