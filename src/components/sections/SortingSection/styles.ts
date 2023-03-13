@@ -35,6 +35,13 @@ export const styles: SxStyles = {
       borderRadius: "6px",
     },
   },
+  activeButton: {
+    borderColor: "custom.primary",
+    [basicTheme.breakpoints.up("tablet")]: {
+      p: "10px",
+      borderColor: "custom.primary",
+    },
+  },
   buttonLabel: {
     textAlign: "left",
     [basicTheme.breakpoints.up("tablet")]: {
@@ -64,5 +71,14 @@ export const styles: SxStyles = {
   filterIcon: {
     width: "18px",
     height: "18px",
+  },
+  filterBox: {
+    px: 4,
+    py: 3,
+  },
+  resetFilter: {
+    minWidth: "auto",
+    mr: "auto",
+    mb: 5,
   },
 };
